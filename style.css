@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.calculator{
+    width: 12rem;
+    display: flex;
+    gap:0.5rem;
+    flex-wrap: wrap;
+}
+
+.screen {
+    border: 1px solid lightgray;
+    width: 80%;
+}
+
+.numKeys {
+    padding:0.4rem;
+}
