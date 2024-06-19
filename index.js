@@ -31,9 +31,18 @@ switch(operator){
 let numKeys=document.querySelectorAll('.numKey');
 let actionKeys=document.querySelectorAll('.actionKey');
 let screen =document.querySelector('.screen');
+
 const readKeyClick=(e)=>{
+    console.log(e.target.className);
+    // if(e.target.className==='actionKey'){
+    //     // console.log(e.target.textContent);
+    //     num1=parseInt(display)
+    //     console.log('the first number is: ',num1);
+    //   }
   display= display + e.target.textContent;
   screen.textContent=display;
+
+  
 
 }
 
@@ -48,7 +57,10 @@ for(el of actionKeys){
 
 document.querySelector('.clearKey').addEventListener('click',()=>{
     display='';   
-    screen.textContent=display;
-console.log(display)})
+    screen.textContent=display;})
 
-console.log(operate(3,1,'/'));
+    document.querySelector('.equalsKey').addEventListener('click',()=>{
+        console.log(display) 
+         let entries=display.split(/[/ +*-/ /]/);
+         console.log(entries);
+        screen.textContent=display;})
