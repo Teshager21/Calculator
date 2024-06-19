@@ -1,4 +1,5 @@
 let num1,num2, operator;
+let display='';
 const add =( num1,num2)=>{
        return num1+num2;
 }
@@ -27,4 +28,20 @@ switch(operator){
 }
 }
 
+let actionKeys=document.querySelectorAll('.numKey');
+
+let screen =document.querySelector('.screen');
+const readKeyClick=(e)=>{
+  console.log(e.target.textContent);
+
+
+}
+
+// actionKeys.forEach(element => {
+//     element.addEventListener('click',()=>numKeyClick);
+// });
+
+for(el of actionKeys){
+    el.addEventListener('click',readKeyClick); 
+}
 console.log(operate(3,1,'/'));
