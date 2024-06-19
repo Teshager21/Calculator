@@ -33,6 +33,12 @@ let actionKeys=document.querySelectorAll('.actionKey');
 let screen =document.querySelector('.screen');
 
 const readKeyClick=(e)=>{
+    let lastChar= display.toString().slice(-1)
+    if(e.target.className==='actionKey' && lastChar.match(/[/ +*-/ /]/)){
+        display=display.slice(0,-1)+e.target.textContent;
+        console.log('nooooow......',display)
+    }
+    
      if(restart===true && e.target.className==='numKey') {
         display=''
         screen.textContent=display;
@@ -44,13 +50,13 @@ const readKeyClick=(e)=>{
         restart=false;
      }
     if(e.target.className==='actionKey'){
-      
-       if(display.toString().match(/[/ +*-/ /]/) && display.split(/[/ +*-/ /]/).length>1){
-        console.log('problem...... ')
-        evaluate();
-       }
+       
+    if(display.toString().match(/[/ +*-/ /]/) && display.toString().split(/[/ +*-/ /]/).length>1){
+    evaluate();
+    }
        operator=e.target.textContent;
       }
+      console.log('then....',display);
   display= display + e.target.textContent;
   screen.textContent=display;
 
@@ -72,10 +78,17 @@ document.querySelector('.clearKey').addEventListener('click',()=>{
     screen.textContent=display;})
 
 const evaluate=()=>{
-    let entries=display.split(/[/ +*-/ /]/);
+   
+    console.log(display.toString().split(/[/ +*-/ /]/).length>1);
+    let entries=display.toString().split(/[/ +*-/ /]/);
     num1=parseInt(entries[0]);
     num2=parseInt(entries[1]);
-    display=operate(num1,num2,operator);
+    if(num1&&num2){
+        display=operate(num1,num2,operator);
+    }else{
+        display=display.slice(0,-1);
+    }
+    console.log('here....',display);
     screen.textContent=display;
 }
 
