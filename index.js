@@ -32,8 +32,8 @@ let actionKeys=document.querySelectorAll('.numKey');
 
 let screen =document.querySelector('.screen');
 const readKeyClick=(e)=>{
-  console.log(e.target.textContent);
-
+  display= display + e.target.textContent;
+  screen.textContent=display;
 
 }
 
