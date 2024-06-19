@@ -43,10 +43,15 @@ const readKeyClick=(e)=>{
         // screen.textContent=display;
         restart=false;
      }
-
     if(e.target.className==='actionKey'){
+      
+       if(display.toString().match(/[/ +*-/ /]/) && display.split(/[/ +*-/ /]/).length>1){
+        console.log('problem...... ')
+        evaluate();
+       }
        operator=e.target.textContent;
       }
+    //   display=display.slice(0,-1);
   display= display + e.target.textContent;
   screen.textContent=display;
 
@@ -67,12 +72,14 @@ document.querySelector('.clearKey').addEventListener('click',()=>{
     display='';   
     screen.textContent=display;})
 
-    document.querySelector('.equalsKey').addEventListener('click',()=>{
-         let entries=display.split(/[/ +*-/ /]/);
-         num1=parseInt(entries[0]);
-         num2=parseInt(entries[1]);
-         display=operate(num1,num2,operator);
-         console.log(display);
+const evaluate=()=>{
+    let entries=display.split(/[/ +*-/ /]/);
+    num1=parseInt(entries[0]);
+    num2=parseInt(entries[1]);
+    display=operate(num1,num2,operator);
+    screen.textContent=display;
+}
 
-        screen.textContent=display;
-    restart=true;})
+    document.querySelector('.equalsKey').addEventListener('click',()=>{
+        evaluate(); restart=true;})
+
