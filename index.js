@@ -51,7 +51,6 @@ const readKeyClick=(e)=>{
        }
        operator=e.target.textContent;
       }
-    //   display=display.slice(0,-1);
   display= display + e.target.textContent;
   screen.textContent=display;
 
@@ -81,5 +80,9 @@ const evaluate=()=>{
 }
 
     document.querySelector('.equalsKey').addEventListener('click',()=>{
-        evaluate(); restart=true;})
+        if(display.toString().match(/[/ +*-/ /]/)){
+            evaluate(); 
+            restart=true;
+        }
+        })
 
