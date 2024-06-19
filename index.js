@@ -36,7 +36,6 @@ const readKeyClick=(e)=>{
     let lastChar= display.toString().slice(-1)
     if(e.target.className==='actionKey' && lastChar.match(/[/ +*-/ /]/)){
         display=display.slice(0,-1)+e.target.textContent;
-        console.log('nooooow......',display)
     }
     
      if(restart===true && e.target.className==='numKey') {
@@ -45,23 +44,20 @@ const readKeyClick=(e)=>{
         restart=false;
      }
      if(restart===true && e.target.className==='actionKey') {
-        // display=''
-        // screen.textContent=display;
         restart=false;
      }
     if(e.target.className==='actionKey'){
-       
     if(display.toString().match(/[/ +*-/ /]/) && display.toString().split(/[/ +*-/ /]/).length>1){
     evaluate();
+    
     }
        operator=e.target.textContent;
       }
-      console.log('then....',display);
-  display= display + e.target.textContent;
+     if(!lastChar.match(/[/ +*-/ /]/)&&e.target.className==='actionKey'||e.target.className==='numKey' ) {
+        display= display + e.target.textContent;
+     }
+
   screen.textContent=display;
-
-  
-
 }
 
 
@@ -79,23 +75,30 @@ document.querySelector('.clearKey').addEventListener('click',()=>{
 
 const evaluate=()=>{
    
-    console.log(display.toString().split(/[/ +*-/ /]/).length>1);
     let entries=display.toString().split(/[/ +*-/ /]/);
-    num1=parseInt(entries[0]);
-    num2=parseInt(entries[1]);
+    if(display[0]==='-'){
+        num1=parseInt(entries[1])*-1
+        num2=parseInt(entries[2]);
+    }else{
+        num1=parseInt(entries[0]);
+        num2=parseInt(entries[1]);
+    }
     if(num1&&num2){
         display=operate(num1,num2,operator);
-    }else{
-        display=display.slice(0,-1);
     }
-    console.log('here....',display);
+    else{
+        if(entries[0]!==''){
+            display=display.toString().slice(0,-1);
+        }    
+       
+    }
     screen.textContent=display;
 }
 
-    document.querySelector('.equalsKey').addEventListener('click',()=>{
-        if(display.toString().match(/[/ +*-/ /]/)){
-            evaluate(); 
-            restart=true;
-        }
-        })
+document.querySelector('.equalsKey').addEventListener('click',()=>{
+    if(display.toString().match(/[/ +*-/ /]/)){
+        evaluate(); 
+        restart=true;
+    }
+    })
 
