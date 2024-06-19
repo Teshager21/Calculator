@@ -20,10 +20,12 @@
     align-items: flex-start;
     border: 1px solid gray;
     padding: 0.4rem;
+    background-color: #f3f3f3;
 }
 
 .screen {
     border: 1px solid lightgray;
+    background-color: #fff;
     width: 95%;
     height: 5rem;
     margin : auto;
@@ -65,7 +67,7 @@
     padding:1rem;
     width: 30%;
 }
-.numKey {
+.backKey {
     padding:1rem;
     width: 30%;
 }

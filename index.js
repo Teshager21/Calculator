@@ -101,4 +101,8 @@ document.querySelector('.equalsKey').addEventListener('click',()=>{
         restart=true;
     }
     })
+document.querySelector('.backKey').addEventListener('click',()=>{
+    display=display.toString().slice(0,-1);
+    screen.textContent=display;
+})
 
