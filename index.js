@@ -46,4 +46,9 @@ for(el of actionKeys){
     el.addEventListener('click',readKeyClick); 
 }
 
+document.querySelector('.clearKey').addEventListener('click',()=>{
+    display='';   
+    screen.textContent=display;
+console.log(display)})
+
 console.log(operate(3,1,'/'));
