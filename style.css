@@ -18,8 +18,8 @@
     gap:1rem;
     flex-wrap: wrap;
     align-items: flex-start;
-    border: 1px solid black;
-    padding-top: 0.4rem;
+    border: 1px solid gray;
+    padding: 0.4rem;
 }
 
 .screen {
@@ -63,8 +63,20 @@
     padding:1rem;
     width: 30%;
 }
+.numKey {
+    padding:1rem;
+    width: 30%;
+}
+.specialKey {
+    padding:1rem;
+    width: 30%;
+}
 
 .actionKey {
+    padding: 1rem;
+    width: 90%;
+}
+.equalsKey {
     padding: 1rem;
     width: 90%;
 }

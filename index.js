@@ -28,8 +28,8 @@ switch(operator){
 }
 }
 
-let actionKeys=document.querySelectorAll('.numKey');
-
+let numKeys=document.querySelectorAll('.numKey');
+let actionKeys=document.querySelectorAll('.actionKey');
 let screen =document.querySelector('.screen');
 const readKeyClick=(e)=>{
   display= display + e.target.textContent;
@@ -37,11 +37,13 @@ const readKeyClick=(e)=>{
 
 }
 
-// actionKeys.forEach(element => {
-//     element.addEventListener('click',()=>numKeyClick);
-// });
+
+for(el of numKeys){
+    el.addEventListener('click',readKeyClick); 
+}
 
 for(el of actionKeys){
     el.addEventListener('click',readKeyClick); 
 }
+
 console.log(operate(3,1,'/'));
