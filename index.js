@@ -1,4 +1,4 @@
-let num1,num2, operator;
+let num1,num2, operator,restart=false;
 let display='';
 const add =( num1,num2)=>{
        return num1+num2;
@@ -33,7 +33,17 @@ let actionKeys=document.querySelectorAll('.actionKey');
 let screen =document.querySelector('.screen');
 
 const readKeyClick=(e)=>{
-    console.log(e.target.className);
+     if(restart===true && e.target.className==='numKey') {
+        display=''
+        screen.textContent=display;
+        restart=false;
+     }
+     if(restart===true && e.target.className==='actionKey') {
+        // display=''
+        // screen.textContent=display;
+        restart=false;
+     }
+
     if(e.target.className==='actionKey'){
        operator=e.target.textContent;
       }
@@ -58,12 +68,11 @@ document.querySelector('.clearKey').addEventListener('click',()=>{
     screen.textContent=display;})
 
     document.querySelector('.equalsKey').addEventListener('click',()=>{
-        console.log(display) 
          let entries=display.split(/[/ +*-/ /]/);
          num1=parseInt(entries[0]);
          num2=parseInt(entries[1]);
          display=operate(num1,num2,operator);
-         console.log(num1);
          console.log(display);
 
-        screen.textContent=display;})
+        screen.textContent=display;
+    restart=true;})

@@ -25,11 +25,11 @@
 .screen {
     border: 1px solid lightgray;
     width: 95%;
-    height: 2rem;
+    height: 5rem;
     margin : auto;
     text-align: center;
     font-size: 1.2rem;
-    text-wrap: wrap;
+    text-wrap: pretty;
     
 }
 
