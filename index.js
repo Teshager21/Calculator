@@ -34,11 +34,9 @@ let screen =document.querySelector('.screen');
 
 const readKeyClick=(e)=>{
     console.log(e.target.className);
-    // if(e.target.className==='actionKey'){
-    //     // console.log(e.target.textContent);
-    //     num1=parseInt(display)
-    //     console.log('the first number is: ',num1);
-    //   }
+    if(e.target.className==='actionKey'){
+       operator=e.target.textContent;
+      }
   display= display + e.target.textContent;
   screen.textContent=display;
 
@@ -62,5 +60,10 @@ document.querySelector('.clearKey').addEventListener('click',()=>{
     document.querySelector('.equalsKey').addEventListener('click',()=>{
         console.log(display) 
          let entries=display.split(/[/ +*-/ /]/);
-         console.log(entries);
+         num1=parseInt(entries[0]);
+         num2=parseInt(entries[1]);
+         display=operate(num1,num2,operator);
+         console.log(num1);
+         console.log(display);
+
         screen.textContent=display;})
