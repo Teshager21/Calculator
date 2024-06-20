@@ -32,32 +32,52 @@ let numKeys=document.querySelectorAll('.numKey');
 let actionKeys=document.querySelectorAll('.actionKey');
 let screen =document.querySelector('.screen');
 
-const readKeyClick=(e)=>{
+
+const readActionKey=(e)=>{
+if(e.target.className==='actionKey'){
+//when the previous input is an operator
+    //replacing the pervious operator with another one
+
     let lastChar= display.toString().slice(-1)
-    if(e.target.className==='actionKey' && lastChar.match(/[/ +*-/ /]/)){
+    if( lastChar.match(/[/ +*-/ /]/)){
         display=display.slice(0,-1)+e.target.textContent;
     }
-    
-     if(restart===true && e.target.className==='numKey') {
-        display=''
-        screen.textContent=display;
-        restart=false;
-     }
-     if(restart===true && e.target.className==='actionKey') {
-        restart=false;
-     }
-    if(e.target.className==='actionKey'){
-    if(display.toString().match(/[/ +*-/ /]/) && display.toString().split(/[/ +*-/ /]/).length>1){
-    evaluate();
-    
-    }
-       operator=e.target.textContent;
-      }
-     if(!lastChar.match(/[/ +*-/ /]/)&&e.target.className==='actionKey'||e.target.className==='numKey' ) {
-        display= display + e.target.textContent;
-     }
 
-  screen.textContent=display;
+//when the previous input is not operator
+ //No operator chaining- append input to display
+ if(!lastChar.match(/[/ +*-/ /]/)) {
+    display= display + e.target.textContent;
+ }
+
+ //Chaining-evaluate first two numbers before going to the next operation 
+ displayCleaned=display.toString().trim().split(/[/+*-//]/).filter(el=>el!=='').join();
+ if(display.toString().match(/[/ +*-//]/) && displayCleaned.split(/[/ +*-//]/).length>1){
+    evaluate();
+    display= display + e.target.textContent;
+}
+// capture the last operator input
+ operator=e.target.textContent;
+}
+}
+const readNumKey=(e)=>{
+    if(e.target.className==='numKey'){
+        //resetting when number key is pressed after result 
+        if(restart===true) {
+            display=''
+            restart=false;
+         }else
+        
+        //append input to display on restart=false
+          {
+            display= display + e.target.textContent;
+         }
+        }
+    
+}
+const readKeyClick=(e)=>{
+    readActionKey(e);
+    readNumKey(e);
+    screen.textContent=display;
 }
 
 
