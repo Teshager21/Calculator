@@ -33,76 +33,64 @@ let actionKeys=document.querySelectorAll('.actionKey');
 let screen =document.querySelector('.screen');
 
 
-const readActionKey=(e)=>{
+const readActionKey=(value)=>{
    
-if(e.target.className==='actionKey'){
+
     restart=false;
 //when the previous input is an operator
-    //replacing the pervious operator with another one
-    // console.log('first',display);
+    //replacing the pervious operator with the new one
     let lastChar= display.toString().slice(-1)
     if( lastChar.match(/[/ +*-/ /]/)){
-        display=display.slice(0,-1)+e.target.textContent;
+        display=display.slice(0,-1)+value;
     }
 
 //when the previous input is not operator
- //No operator chaining- append input to display
- if(!lastChar.match(/[/ +*-/ /]/)) {
-    // console.log('second',display);
-    display= display + e.target.textContent;
-    // console.log('third',display);
+
+ if(!lastChar.match(/[/ +*-/ /]/)) { 
     //Chaining-evaluate first two numbers before going to the next operation 
- displayCleaned=display.toString().trim().split(/[/*+-]/).filter(el=>el!=='').join();
-//  console.log('cleaned',display,displayCleaned,displayCleaned.split(/[,]/).length);
+    displayCleaned=display.toString().trim().split(/[/*+-]/).filter(el=>el!=='').join();
  if(display.toString().match(/[/ +*-//]/) && displayCleaned.split(/[,]/).length>1){
     evaluate();
-    display= display + e.target.textContent;
-    // console.log('fourth after evaluation',display);
-    
+     
 }
-
+display= display + value; 
  }
 
  
 // capture the last operator input
- operator=e.target.textContent;
+ operator=value;
 }
-}
-const readNumKey=(e)=>{
-    if(e.target.className==='numKey'){
+const readNumKey=(value)=>{
+     console.log('first: ',display);
         //resetting when number key is pressed after result
-        console.log('reset state is ', restart);
         if(restart===true) {
             display=''
             restart=false;
-            display= display + e.target.textContent;
+            display= display + value;
          }
         //only one dot for the first entry
-        //if there is no operator and display and if it already contains a dot - don't allow any more
+        //if there is no operator in display and if it already contains a dot - don't allow any more
         
-       else if(!display.toString().match(/[/*+-]/) && display.toString().trim().includes('.')&& e.target.textContent==='.'){
+       else if(!display.toString().match(/[/*+-]/) && display.toString().trim().includes('.')&& value==='.'){
             if(display.slice(-1)==='.'){
             }
             console.log('cant do this')}
-        // }
             
-       else if(display.toString().match(/[/*+-]/) && display,display.toString().trim().split(/[/*+-]/).filter(el=>el!=='').length>1 && display.toString().trim().split(/[/*+-]/).filter(el=>el!=='')[1].includes('.')&&e.target.textContent==='.'){
+       else if(display.toString().match(/[/*+-]/) && display.toString().trim().split(/[/*+-]/).filter(el=>el!=='').length>1 && display.toString().trim().split(/[/*+-]/).filter(el=>el!=='')[1].includes('.')&&value==='.'){
                   console.log('too much dots......');
        }
 
-         else if(e.target.textContent==='.' && display.slice(-1)==='.'){
+         else if(value==='.' && display.slice(-1)==='.'){
         //append input to display on restart=false
           
          }else{
-            display= display + e.target.textContent;
-         }
-
-        }
+            display= display + value;
+         }  
     
 }
 const readKeyClick=(e)=>{
-    readActionKey(e);
-    readNumKey(e);
+    if(e.target.className==='numKey') readNumKey(e.target.textContent);
+    if(e.target.className==='actionKey')readActionKey(e.target.textContent);
     screen.textContent=display;
 }
 
@@ -138,8 +126,6 @@ const evaluate=()=>{
     }
     else{
         if(entries[0]!==''){
-            // display=display.toString().slice(0,-1);
-            // display=display.toString().slice(0,-1);
         }    
        
     }
@@ -156,4 +142,32 @@ document.querySelector('.backKey').addEventListener('click',()=>{
     display=display.toString().slice(0,-1);
     screen.textContent=display;
 })
+
+const handleKeyboardInput=(e)=>{
+    console.log(e)
+}
+document.addEventListener('keydown',(e)=>{
+    
+     if(/^\d$/.test(e.key) || /[.]/.test(e.key)){
+        readNumKey(e.key);
+        console.log('reading number:',e.key);
+     }
+     if(/[/*+-]/.test(e.key)){
+        readActionKey(e.key);
+     }
+    //   //check if the input is a number
+    // console.log(/^\d$/.test(e.key));
+    // //alphabet
+    // console.log(/[A-Z]/i.test(e.key));
+    // //operation
+    // console.log(/[/*+-]/.test(e.key));
+    // //special
+    // console.log(/[.=]/.test(e.key));
+    // //backspace
+    // // console.log(e.keyCode===8)
+    // // display=display+e.key;
+    screen.textContent=display;
+    console.log(e.key);
+    // screen.textContent=display;
+}); 
 
