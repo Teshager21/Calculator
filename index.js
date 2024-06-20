@@ -103,9 +103,12 @@ for(el of actionKeys){
     el.addEventListener('click',readKeyClick); 
 }
 
-document.querySelector('.clearKey').addEventListener('click',()=>{
+const readClearKey=()=>{
     display='';   
-    screen.textContent=display;})
+    screen.textContent=display;
+}
+
+document.querySelector('.clearKey').addEventListener('click',readClearKey)
 
 const evaluate=()=>{
     console.log(display);
@@ -131,41 +134,47 @@ const evaluate=()=>{
     }
     screen.textContent=display;
 }
-
-document.querySelector('.equalsKey').addEventListener('click',()=>{
+ const readEqualsKey=()=>{
     if(display.toString().match(/[/ +*-/ /]/)&&!display.toString().slice(-1).match(/[/ +*-/ /]/)){
         evaluate(); 
         restart=true;
     }
-    })
-document.querySelector('.backKey').addEventListener('click',()=>{
+ }
+document.querySelector('.equalsKey').addEventListener('click',readEqualsKey)
+
+const readBackspaceKey=()=>{
     display=display.toString().slice(0,-1);
     screen.textContent=display;
-})
+}
+document.querySelector('.backKey').addEventListener('click',readBackspaceKey)
 
 const handleKeyboardInput=(e)=>{
     console.log(e)
 }
 document.addEventListener('keydown',(e)=>{
-    
+    //numeric inputs
      if(/^\d$/.test(e.key) || /[.]/.test(e.key)){
         readNumKey(e.key);
         console.log('reading number:',e.key);
      }
+     //operator inputs
      if(/[/*+-]/.test(e.key)){
         readActionKey(e.key);
      }
-    //   //check if the input is a number
-    // console.log(/^\d$/.test(e.key));
-    // //alphabet
-    // console.log(/[A-Z]/i.test(e.key));
-    // //operation
-    // console.log(/[/*+-]/.test(e.key));
-    // //special
-    // console.log(/[.=]/.test(e.key));
-    // //backspace
-    // // console.log(e.keyCode===8)
-    // // display=display+e.key;
+     //equals & enter key
+     if(/[/=]/.test(e.key)||e.key==="Enter"){
+        readEqualsKey();
+       
+     }
+     //backSpace
+     if(e.key==='Backspace'){
+        readBackspaceKey();
+     }
+     //delete key
+     if(e.key==='Delete'){
+        readClearKey();
+        console.log('really?');
+     }
     screen.textContent=display;
     console.log(e.key);
     // screen.textContent=display;
