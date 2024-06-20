@@ -34,8 +34,9 @@ let screen =document.querySelector('.screen');
 
 
 const readActionKey=(e)=>{
-    restart=false;
+   
 if(e.target.className==='actionKey'){
+    restart=false;
 //when the previous input is an operator
     //replacing the pervious operator with another one
     // console.log('first',display);
@@ -69,15 +70,33 @@ if(e.target.className==='actionKey'){
 }
 const readNumKey=(e)=>{
     if(e.target.className==='numKey'){
-        //resetting when number key is pressed after result 
+        //resetting when number key is pressed after result
+        console.log('reset state is ', restart);
         if(restart===true) {
             display=''
             restart=false;
-         }
-         else if(!(e.target.textContent==='.' && display.slice(-1)==='.')){
-        //append input to display on restart=false
             display= display + e.target.textContent;
          }
+        //only one dot for the first entry
+        //if there is no operator and display and if it already contains a dot - don't allow any more
+        
+       else if(!display.toString().match(/[/*+-]/) && display.toString().trim().includes('.')&& e.target.textContent==='.'){
+            if(display.slice(-1)==='.'){
+            }
+            console.log('cant do this')}
+        // }
+            
+       else if(display.toString().match(/[/*+-]/) && display,display.toString().trim().split(/[/*+-]/).filter(el=>el!=='').length>1 && display.toString().trim().split(/[/*+-]/).filter(el=>el!=='')[1].includes('.')&&e.target.textContent==='.'){
+                  console.log('too much dots......');
+       }
+
+         else if(e.target.textContent==='.' && display.slice(-1)==='.'){
+        //append input to display on restart=false
+          
+         }else{
+            display= display + e.target.textContent;
+         }
+
         }
     
 }
