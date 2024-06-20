@@ -38,24 +38,30 @@ const readActionKey=(e)=>{
 if(e.target.className==='actionKey'){
 //when the previous input is an operator
     //replacing the pervious operator with another one
-
+    console.log('first',display);
     let lastChar= display.toString().slice(-1)
-    if( lastChar.match(/[/ +*-/ /]/)){
+    if( lastChar.match(/[//*+-/ /]/)){
         display=display.slice(0,-1)+e.target.textContent;
     }
 
 //when the previous input is not operator
  //No operator chaining- append input to display
  if(!lastChar.match(/[/ +*-/ /]/)) {
+    console.log('second',display);
     display= display + e.target.textContent;
- }
-
- //Chaining-evaluate first two numbers before going to the next operation 
+    console.log('third',display);
+    //Chaining-evaluate first two numbers before going to the next operation 
  displayCleaned=display.toString().trim().split(/[/+*-//]/).filter(el=>el!=='').join();
  if(display.toString().match(/[/ +*-//]/) && displayCleaned.split(/[/ +*-//]/).length>1){
     evaluate();
     display= display + e.target.textContent;
+    console.log('fourth',display);
+    
 }
+
+ }
+
+ 
 // capture the last operator input
  operator=e.target.textContent;
 }
@@ -95,17 +101,21 @@ document.querySelector('.clearKey').addEventListener('click',()=>{
     screen.textContent=display;})
 
 const evaluate=()=>{
-   
-    let entries=display.toString().split(/[/ +*-/ /]/);
+    console.log(display);
+    let entries;
+        entries=display.toString().trim().split(/[/*+-]/);
+    console.log('entries',entries);
     if(display[0]==='-'){
-        num1=parseInt(entries[1])*-1
-        num2=parseInt(entries[2]);
+        num1=parseFloat(entries[1])*-1
+        num2=parseFloat(entries[2]);
     }else{
-        num1=parseInt(entries[0]);
-        num2=parseInt(entries[1]);
+        num1=parseFloat(entries[0]);
+        num2=parseFloat(entries[1]);
+        console.log(num1,num2);
     }
-    if(num1&&num2){
+    if(true){
         display=operate(num1,num2,operator);
+        console.log('beeen here......');
     }
     else{
         if(entries[0]!==''){
