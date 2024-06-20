@@ -38,7 +38,7 @@ const readActionKey=(e)=>{
 if(e.target.className==='actionKey'){
 //when the previous input is an operator
     //replacing the pervious operator with another one
-    console.log('first',display);
+    // console.log('first',display);
     let lastChar= display.toString().slice(-1)
     if( lastChar.match(/[/ +*-/ /]/)){
         display=display.slice(0,-1)+e.target.textContent;
@@ -47,16 +47,16 @@ if(e.target.className==='actionKey'){
 //when the previous input is not operator
  //No operator chaining- append input to display
  if(!lastChar.match(/[/ +*-/ /]/)) {
-    console.log('second',display);
+    // console.log('second',display);
     display= display + e.target.textContent;
-    console.log('third',display);
+    // console.log('third',display);
     //Chaining-evaluate first two numbers before going to the next operation 
  displayCleaned=display.toString().trim().split(/[/*+-]/).filter(el=>el!=='').join();
- console.log('cleaned',display,displayCleaned,displayCleaned.split(/[,]/).length);
+//  console.log('cleaned',display,displayCleaned,displayCleaned.split(/[,]/).length);
  if(display.toString().match(/[/ +*-//]/) && displayCleaned.split(/[,]/).length>1){
     evaluate();
     display= display + e.target.textContent;
-    console.log('fourth after evaluation',display);
+    // console.log('fourth after evaluation',display);
     
 }
 
@@ -73,10 +73,9 @@ const readNumKey=(e)=>{
         if(restart===true) {
             display=''
             restart=false;
-         }else
-        
+         }
+         else if(!(e.target.textContent==='.' && display.slice(-1)==='.')){
         //append input to display on restart=false
-          {
             display= display + e.target.textContent;
          }
         }
