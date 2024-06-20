@@ -34,6 +34,7 @@ let screen =document.querySelector('.screen');
 
 
 const readActionKey=(e)=>{
+    restart=false;
 if(e.target.className==='actionKey'){
 //when the previous input is an operator
     //replacing the pervious operator with another one
@@ -108,7 +109,8 @@ const evaluate=()=>{
     }
     else{
         if(entries[0]!==''){
-            display=display.toString().slice(0,-1);
+            // display=display.toString().slice(0,-1);
+            // display=display.toString().slice(0,-1);
         }    
        
     }
@@ -116,7 +118,7 @@ const evaluate=()=>{
 }
 
 document.querySelector('.equalsKey').addEventListener('click',()=>{
-    if(display.toString().match(/[/ +*-/ /]/)){
+    if(display.toString().match(/[/ +*-/ /]/)&&!display.toString().slice(-1).match(/[/ +*-/ /]/)){
         evaluate(); 
         restart=true;
     }
