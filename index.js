@@ -40,7 +40,7 @@ if(e.target.className==='actionKey'){
     //replacing the pervious operator with another one
     console.log('first',display);
     let lastChar= display.toString().slice(-1)
-    if( lastChar.match(/[//*+-/ /]/)){
+    if( lastChar.match(/[/ +*-/ /]/)){
         display=display.slice(0,-1)+e.target.textContent;
     }
 
@@ -51,11 +51,12 @@ if(e.target.className==='actionKey'){
     display= display + e.target.textContent;
     console.log('third',display);
     //Chaining-evaluate first two numbers before going to the next operation 
- displayCleaned=display.toString().trim().split(/[/+*-//]/).filter(el=>el!=='').join();
- if(display.toString().match(/[/ +*-//]/) && displayCleaned.split(/[/ +*-//]/).length>1){
+ displayCleaned=display.toString().trim().split(/[/*+-]/).filter(el=>el!=='').join();
+ console.log('cleaned',display,displayCleaned,displayCleaned.split(/[,]/).length);
+ if(display.toString().match(/[/ +*-//]/) && displayCleaned.split(/[,]/).length>1){
     evaluate();
     display= display + e.target.textContent;
-    console.log('fourth',display);
+    console.log('fourth after evaluation',display);
     
 }
 
