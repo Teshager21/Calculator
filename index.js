@@ -40,16 +40,16 @@ const readActionKey=(value)=>{
 //when the previous input is an operator
     //replacing the pervious operator with the new one
     let lastChar= display.toString().slice(-1)
-    if( lastChar.match(/[/ +*-/ /]/)){
+    if( lastChar.match(/[/*+-]/)){
         display=display.slice(0,-1)+value;
     }
 
 //when the previous input is not operator
 
- if(!lastChar.match(/[/ +*-/ /]/)) { 
+ if(!lastChar.match(/[/*+-]/)) { 
     //Chaining-evaluate first two numbers before going to the next operation 
     displayCleaned=display.toString().trim().split(/[/*+-]/).filter(el=>el!=='').join();
- if(display.toString().match(/[/ +*-//]/) && displayCleaned.split(/[,]/).length>1){
+ if(display.toString().match(/[/*+-]/) && displayCleaned.split(/[,]/).length>1){
     evaluate();
      
 }
@@ -135,7 +135,7 @@ const evaluate=()=>{
     screen.textContent=display;
 }
  const readEqualsKey=()=>{
-    if(display.toString().match(/[/ +*-/ /]/)&&!display.toString().slice(-1).match(/[/ +*-/ /]/)){
+    if(display.toString().match(/[/*+-]/)&&!display.toString().slice(-1).match(/[/*+-]/)){
         evaluate(); 
         restart=true;
     }
