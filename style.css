@@ -45,6 +45,8 @@ h1{
     text-align: right;
     font-size: 1.2rem;
     text-wrap: wrap;
+    word-wrap: break-word;
+    overflow:hidden;
     padding-right: 1rem;
     border-radius: 0.5rem;
     font-weight: bold;
@@ -116,5 +118,5 @@ button {
     border-radius: 0.3rem;
     border: 1px solid grey;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    border: 0.1px solid #ccc;
+    border: 0.1px solid #eee;
 }
