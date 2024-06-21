@@ -22,19 +22,18 @@ const displayHasOperator=()=>display.toString().match(/[/*+-]/);
 const displayHasDigitPoint=()=>display.toString().trim().includes('.');
 const numberOfNumbersInDisplay=()=> display.toString().trim().split(/[/*+-]/).filter(el=>el!=='').length;  
 const secondNumberHasDigitPoint=()=> display.toString().trim().split(/[/*+-]/).filter(el=>el!=='')[1].includes('.');
-const lastCharOfDisplay=()=>display.slice(-1);    
+const lastCharOfDisplay=()=>display.slice(-1);  
+
 const readActionKey=(value)=>{
     restart=false;
-    let lastChar= display.toString().slice(-1)
     if(display===''){    //first input
         if(value==="+"){}
         else if(display.match(/[/*]/))display='';
         else if(value==='-')display=value;
         screen.textContent=display;  
     }
-    //when the previous input is an operator
-    else if( lastChar.match(/[/*+-]/)) display=display.slice(0,-1)+value;  //replacing the pervious operator with the new one
-    else if(!lastChar.match(/[/*+-]/)) {   //when the previous input is not an operator
+    else if( lastCharOfDisplay().match(/[/*+-]/)) display=display.slice(0,-1)+value;  //when the previous input is an operator-replacing the pervious operator with the new one
+    else if(!lastCharOfDisplay().match(/[/*+-]/)) {   //when the previous input is not an operator
         if(displayHasOperator() && numberOfNumbersInDisplay()>1) evaluate();  //Chaining-evaluate first two numbers before going to the next operation 
         display= display + value; 
     } 
@@ -47,12 +46,12 @@ const readNumKey=(value)=>{
         display=''
         restart=false;
         display= display + value;
+        } 
+    else if(value==='.'){
+             if(!displayHasOperator() && displayHasDigitPoint()&& value==='.'&&lastCharOfDisplay()==='.'|| //only one dot for first number
+             displayHasOperator() && numberOfNumbersInDisplay()>1 && secondNumberHasDigitPoint()&&value==='.'){ }//only one digit dot for second number
         }
-    //only one dot for the first entry  
-    else if(!displayHasOperator() && displayHasDigitPoint()&& value==='.'&&lastCharOfDisplay()==='.'){ } //if there is no operator in display and if it already contains a dot - don't allow any more 
-    else if(displayHasOperator() && numberOfNumbersInDisplay()>1 && secondNumberHasDigitPoint()&&value==='.'){ }//only one digit dot for second number
-    else if(value==='.' && lastCharOfDisplay()==='.'){}
-    else   {display= display + value;}     
+    else display= display + value;  
 }
 const readClearKey=()=>{
     display='';   
@@ -68,8 +67,8 @@ const evaluate=()=>{
         num1=parseFloat(entries[0]);
         num2=parseFloat(entries[1]);
     }
-    if(true) display=operate(num1,num2,operator);
-    else{ if(entries[0]!==''){}      }
+    display=operate(num1,num2,operator);
+    if(entries[0]!==''){} 
     screen.textContent=display;
 }
  const readEqualsKey=()=>{
