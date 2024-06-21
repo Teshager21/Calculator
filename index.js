@@ -75,7 +75,19 @@ display= display + value;
  operator=value;
 }
 const readNumKey=(value)=>{
-     console.log('first: ',display);
+        
+        const displayHasOperator=()=>{
+            return display.toString().match(/[/*+-]/)
+        }
+        const displayHasDigitPoint=()=>{
+            return display.toString().trim().includes('.')
+        }
+        const numberOfNumbersInDisplay=()=>{
+          return  display.toString().trim().split(/[/*+-]/).filter(el=>el!=='').length;  
+        }
+        const secondNumberHasDigitPoint=()=>{
+            return display.toString().trim().split(/[/*+-]/).filter(el=>el!=='')[1].includes('.');
+        }
         //resetting when number key is pressed after result
         if(restart===true) {
             display=''
@@ -85,19 +97,13 @@ const readNumKey=(value)=>{
         //only one dot for the first entry
         //if there is no operator in display and if it already contains a dot - don't allow any more
         
-       else if(!display.toString().match(/[/*+-]/) && display.toString().trim().includes('.')&& value==='.'){
+       else if(!displayHasOperator() && displayHasDigitPoint()&& value==='.'){
             if(display.slice(-1)==='.'){
-            }
-            console.log('cant do this')}
-            
-       else if(display.toString().match(/[/*+-]/) && display.toString().trim().split(/[/*+-]/).filter(el=>el!=='').length>1 && display.toString().trim().split(/[/*+-]/).filter(el=>el!=='')[1].includes('.')&&value==='.'){
-                  console.log('too much dots......');
-       }
-
-         else if(value==='.' && display.slice(-1)==='.'){
-        //append input to display on restart=false
-          
-         }else{
+            }  } 
+       else if(displayHasOperator && numberOfNumbersInDisplay>1 && secondNumberHasDigitPoint&&value==='.'){
+       } 
+       else if(value==='.' && display.slice(-1)==='.'){
+      }else{
             display= display + value;
          }  
     
@@ -135,7 +141,6 @@ const evaluate=()=>{
     }else{
         num1=parseFloat(entries[0]);
         num2=parseFloat(entries[1]);
-        console.log(num1,num2);
     }
     if(true){
         display=operate(num1,num2,operator);
@@ -169,7 +174,6 @@ document.addEventListener('keydown',(e)=>{
     //numeric inputs
      if(/^\d$/.test(e.key) || /[.]/.test(e.key)){
         readNumKey(e.key);
-        console.log('reading number:',e.key);
      }
      //operator inputs
      if(/[/*+-]/.test(e.key)){
@@ -187,10 +191,7 @@ document.addEventListener('keydown',(e)=>{
      //delete key
      if(e.key==='Delete'){
         readClearKey();
-        console.log('really?');
      }
     screen.textContent=display;
-    console.log(e.key);
-    // screen.textContent=display;
 }); 
 
